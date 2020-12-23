@@ -1,0 +1,88 @@
+{{ template "layout"}}
+{{ define "title" }}User Creation{{ end }}
+
+{{define "content"}}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card " >
+                    <div class="card-header">
+                        <h4 class="card-title">Add User</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/users">
+                            <div class="row">
+                                <div class="col-md-6 pl-1">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control" name="FirstName" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control" name="LastName" placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">                                    
+                                <div class="col-md-6 pl-1">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="email" class="form-control" name="Email" placeholder="Email Address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label>Mobile Number</label>
+                                        <input type="text" class="form-control" name="MobileNumber" placeholder="Mobile Number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" name="City" placeholder="City">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 px-1">
+                                    <div class="form-group">
+                                        <label for="userRole" class="col-form-label">Role</label>
+                                        <select class="form-control" id="userRole" name="Role">
+                                            <option>Admin</option>
+                                            <option>Super Admin</option>
+                                            <option>Engineer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label for="userStatus" class="col-form-label">Status</label>
+                                        <select class="form-control" id="userStatus" name="Status">
+                                            <option value="Active">Active</option>
+                                            <option value="In Active">In Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <textarea rows="4" cols="80" class="form-control" name="Address" placeholder="Address"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>                
+        </div>
+    </div>
+</div> 
+{{end}}

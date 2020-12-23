@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/mdb.css">
+    <!--<link rel="stylesheet" href="static/css/style.css">-->
+    <link rel="stylesheet" href="/static/css/fontawesome.css">
+    <meta charset="UTF-8">
+    <title>User List</title>    
+</head>
+<body>
+<main role="main" class="container-fluid">
+    <div class="starter-template">
+        <br>
+        <h1 align="center">User details</h1>
+        <br>
+        <br>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add New</button>
+        <table class="table table-stripped">
+            {{ $length := len . }}
+            <caption class="caption">
+                &nbsp;List of User(s) : {{ if eq $length 0 }} No results found {{ else}} {{ $length }} {{ end }}
+            </caption>
+            <thead>
+            <tr>
+                <td>UserId</td>
+                <td>FistName</td>
+                <td>LastName</td>
+                <td>Email</td>
+                <td>MobileNumber</td>
+                <td>Address</td>
+                <td>City</td>
+                <td>Role</td>
+                <td>Status</td>
+                <td>CreationDate</td>
+                <td>Actions</td>
+            </tr>
+            </thead>
+            {{range $index, $user := .}}
+            <tr >
+                <td>{{ $index }}</td>
+                <td>{{ .FirstName }}</td>
+                <td>{{ .LastName }}</td>
+                <td>{{ .Email }}</td>
+                <td>{{ .MobileNumber }}</td>
+                <td>{{ .Address }}</td>
+                <td>{{ .City }}</td>
+                <td>{{ .Role }}</td>
+                <td>{{ .Status }}</td>
+                <td>{{ .CreationDate }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="/api/users/{{ .UserId }}"
+                           class="btn btn-warning btn-rounded btn-sm my-0" type="text/html;charset=UTF-8"
+                           id="editButton">Edit</a>
+                        <a href="/ui/users/delete/{{ .UserId }}"
+                           class="btn btn-danger btn-rounded btn-sm my-0" type="text/html;charset=UTF-8"
+                           id="deleteButton">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {{ end }}
+        </table>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer__block block no-margin-bottom">
+        <div class="container-fluid text-center">
+            <p class="no-margin-bottom">2020 &copy; Malyadri Naidu</p>
+        </div>
+    </div>
+</footer>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+<form action="/ui/users" method="post">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="addModalLabel">New User</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+
+               <div class="form-group">
+                   <!--<label for="userFirstName" class="visually-hidden">First Name:</label>-->
+                   <input type="text" class="form-control" id="userFirstName" name="FirstName" placeholder="First Name">
+               </div>
+
+               <div class="form-group">
+                   <!--<label for="userLastName" class="col-form-label">Last Name:</label>-->
+                   <input type="text" class="form-control" id="userLastName" name="LastName" placeholder="Last Name">
+               </div>
+
+               <div class="form-group">
+                   <!--<label for="userEmail" class="col-form-label">Email:</label>-->
+                   <input type="text" class="form-control" id="userEmail" name="Email" placeholder="Email">
+               </div>
+
+               <div class="form-group">
+                    <!--<label for="userMobileNumber" class="col-form-label">Mobile Number:</label>-->
+                    <input type="text" class="form-control" id="userMobileNumber" name="MobileNumber" placeholder="Mobile Number">
+                </div>
+
+                <div class="form-group">
+                    <!--<label for="userCity" class="col-form-label">City:</label>-->
+                    <input type="text" class="form-control" id="userCity" name="City" placeholder="City">
+                </div>
+
+                <div class="form-group">
+                    <!--<label for="userAddress" class="col-form-label">Address:</label>-->
+                    <textarea class="form-control" id="userAddress" name="Address" rows="3" placeholder="Address"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="userRole" class="col-form-label">Role:</label>
+                    <select class="form-control" id="userRole" name="Role">
+                      <option selected>Admin</option>
+                      <option>Super Admin</option>
+                      <option>Engineer</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="userStatus" class="col-form-label">Status:</label>
+                    <select class="form-control" id="userStatus" name="Status">
+                      <option selected>Active</option>
+                      <option>In Active</option>
+                    </select>
+                  </div>
+            </div>
+           
+           <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+           </div>
+       </div>
+   </div>
+</form>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <form action="/ui/users/" method="POST" id="userUpdateForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Update User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="userFirstName" class="col-form-label">First Name:</label>
+                        <input type="text" class="form-control" id="userFirstNameEdit" name="FirstName">
+                    </div>
+     
+                    <div class="form-group">
+                        <label for="userLastName" class="col-form-label">Last Name:</label>
+                        <input type="text" class="form-control" id="userLastNameEdit" name="LastName">
+                    </div>
+     
+                    <div class="form-group">
+                        <label for="userEmail" class="col-form-label">Email:</label>
+                        <input type="text" class="form-control" id="userEmailEdit" name="Email">
+                    </div>
+     
+                    <div class="form-group">
+                        <label for="userMobileNumber" class="col-form-label">Mobile Number:</label>
+                        <input type="text" class="form-control" id="userMobileNumberEdit" name="MobileNumber">
+                    </div>
+     
+                     <div class="form-group">
+                        <label for="userCity" class="col-form-label">City:</label>
+                        <input type="text" class="form-control" id="userCityEdit" name="City">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userAddressEdit" class="col-form-label">Address:</label>
+                        <textarea class="form-control" id="userAddressEdit" name="Address" rows="3"></textarea>
+                    </div>    
+     
+                    <div class="form-group">
+                        <label for="userRole" class="col-form-label">Role:</label>
+                        <select class="form-control" id="userRole" name="Role">
+                            <option>Admin</option>
+                            <option>Super Admin</option>
+                            <option>Engineer</option>
+                        </select>
+                     </div>
+
+                    <div class="form-group">
+                        <label for="userStatus" class="col-form-label">Status:</label>
+                        <select class="form-control" id="userStatus" name="Status">
+                            <option>Active</option>
+                            <option>In Active</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+     <form action="/ui/users/" method="POST" id="userDeleteForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="delRef" type="submit" class="btn btn-primary">Yes, Delete</button>
+                    <!--<a href="" id="delRef" class="btn btn-primary">Yes, Delete</a>-->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>    
+    <script type="text/javascript" src="/static/js/popper.js"></script> 
+    <script type="text/javascript" src="/static/js/mdb.js"></script>   
+    <script type="text/javascript" src="/static/js/edit.js"></script>
+</body>
+</html>

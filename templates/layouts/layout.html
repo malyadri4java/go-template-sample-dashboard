@@ -1,0 +1,28 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" href="/static/css/mdb.css">    
+        <link rel="stylesheet" href="/static/css/fontawesome.css">
+        <link rel="stylesheet" href="/static/css/style.css">     
+        <title>{{ template "title" . }}</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            {{template "sidebar" .}}
+            <div class="main-panel">
+                {{template "navbar" .}}
+                {{template "content" .}}
+                {{template "footer" .}}
+            </div>            
+        </div>
+    </body>    
+    <script type="text/javascript" src="/static/js/jquery.js"></script>  
+    <script type="text/javascript" src="/static/js/popper.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>     
+    <script type="text/javascript" src="/static/js/mdb.js"></script>   
+    <script type="text/javascript" src="/static/js/script.js"></script>    
+</html>
+{{end}}

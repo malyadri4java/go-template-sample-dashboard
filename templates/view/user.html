@@ -1,0 +1,88 @@
+{{ template "layout" }}
+{{ define "title" }} User Managment {{ end }}
+
+{{ define "content" }}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card strpied-tabled-with-hover">
+                    <div class="card-header ">
+                        <h4 class="card-title">User Details</h4>
+                    </div>
+                    <div class="card-body table-full-width table-responsive">
+                        <a href="/users/add" class="btn btn-primary btn-rounded btn-sm my-0">Add New</a>                        
+                        <table class="table table-hover table-striped">
+                            {{ $length := len . }}
+                            <caption class="caption">
+                                &nbsp;List of User(s) : {{ if eq $length 0 }} No results found {{ else}} {{ $length }} {{ end }}
+                            </caption>
+                            <thead>
+                                <td>S.No</td>
+                                <td>FistName</td>
+                                <td>LastName</td>
+                                <td>Email</td>
+                                <td>MobileNumber</td>
+                                <td>Address</td>
+                                <td>City</td>
+                                <td>Role</td>
+                                <td>Status</td>
+                                <td>CreationDate</td>
+                                <td>Actions</td>
+                            </thead>
+                            <tbody>
+                                {{range $index, $user := .}}
+                                <tr >
+                                    <td>{{ $index }}</td>
+                                    <td>{{ .FirstName }}</td>
+                                    <td>{{ .LastName }}</td>
+                                    <td>{{ .Email }}</td>
+                                    <td>{{ .MobileNumber }}</td>
+                                    <td>{{ .Address }}</td>
+                                    <td>{{ .City }}</td>
+                                    <td>{{ .Role }}</td>
+                                    <td>{{ .Status }}</td>
+                                    <td>{{ .CreationDate }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="/users/edit/{{ .UserId }}"
+                                            class="btn btn-warning btn-rounded btn-sm my-1" type="text/html;charset=UTF-8"
+                                            id="editButton">Edit</a>
+                                            <a href="/users/delete/{{ .UserId }}"
+                                            class="btn btn-danger btn-rounded btn-sm my-1" type="text/html;charset=UTF-8"
+                                            id="deleteButton">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{ end }}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>                
+        </div>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <form action="/users" method="POST" id="userDeleteForm">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this record?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="delRef" type="submit" class="btn btn-primary">Yes, Delete</button>
+                            <!--<a href="" id="delRef" class="btn btn-primary">Yes, Delete</a>-->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+</div>  
+{{end}}
